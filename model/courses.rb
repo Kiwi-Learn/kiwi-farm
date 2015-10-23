@@ -1,4 +1,4 @@
-require 'coursesdesc'
+require 'kiwicourse'
 require 'json'
 require 'digest'
 require 'fuzzy_match'
