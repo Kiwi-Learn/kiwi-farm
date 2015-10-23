@@ -5,6 +5,7 @@ GEM
     ansi (1.5.0)
     ast (2.1.0)
     daemons (1.2.3)
+    digest (0.0.1)
     eventmachine (1.0.8)
     fuzzy_match (2.1.0)
     json (1.8.3)
@@ -43,6 +44,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  digest
+  fuzzy_match
   json
   kiwicourse
   minitest

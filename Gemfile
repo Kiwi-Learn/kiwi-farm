@@ -4,6 +4,8 @@ gem 'sinatra'
 gem 'thin'
 gem 'kiwicourse'
 gem 'json'
+gem 'fuzzy_match'
+gem 'digest'
 
 group :test do
   gem 'minitest'
