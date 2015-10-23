@@ -28,11 +28,12 @@ class Course
   private
 
   def load_course_by_id(id)
-    KiwiScraper::ShareCourse.new.courses_id_to_all_mapping[id]
+    sc = KiwiScraper::OfflineCourses.new.get_instance
+    sc.courses_id_to_all_mapping[id]
   end
 
   def load_course_by_name(name)
-    sc = KiwiScraper::ShareCourse.new
+    sc = KiwiScraper::OfflineCourses.new.get_instance
     result = FuzzyMatch.new(sc.course_name).find(name)
     input_key = Digest::SHA256.digest result
     id = sc.courses_name_to_id_mapping[input_key]
