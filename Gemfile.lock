@@ -9,7 +9,7 @@ GEM
     eventmachine (1.0.8)
     fuzzy_match (2.1.0)
     json (1.8.3)
-    kiwicourse (0.4.0)
+    kiwicourse (0.5.2)
       fuzzy_match
       launchy
       oga
