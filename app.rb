@@ -4,7 +4,13 @@ require_relative './model/courses'
 class KiwiFarmApp < Sinatra::Base
   helpers do
     def get_course(id)
-      Course.new(id, name=nil)
+      Course.new(id, nil)
+    rescue
+      halt 404
+    end
+
+    def search_course(keyword)
+      Course.new(nil, keyword)
     rescue
       halt 404
     end
@@ -21,4 +27,13 @@ class KiwiFarmApp < Sinatra::Base
     get_course(params[:id]).to_json
   end
 
+  post '/api/v1/courses/search' do
+    content_type :json
+    begin
+      req = JSON.parse(request.body.read)
+    rescue
+      halt 400
+    end
+    search_course(req['keyword']).to_json
+  end
 end
