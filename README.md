@@ -1,4 +1,6 @@
 # kiwi-farm
+[![Build Status](https://travis-ci.org/Kiwi-Learn/kiwi-farm.svg?branch=master)](https://travis-ci.org/Kiwi-Learn/kiwi-farm)
+
 A courses farm nourish to all kiwiers
 
 # For development
@@ -9,7 +11,7 @@ After clone this repository, use `bundle` to install all dependences
 $ bundle install
 ```
 
-Use `rackup` to run the web app, and visit http://localhost:9292/
+Use `rackup` to run the web app, and visit [http://localhost:9292](http://localhost:9292/)
 
 ```sh
 $ rackup config.ru
