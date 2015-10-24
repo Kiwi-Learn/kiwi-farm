@@ -26,6 +26,6 @@ describe 'Searching course' do
 
     post '/api/v1/courses/search', body.to_json, header
     last_response.must_be :ok?
-    last_response.body.must_match(/"name":"C Programming"/)
+    last_response.body.must_match(/"id":"CS01007"/)
   end
 end
