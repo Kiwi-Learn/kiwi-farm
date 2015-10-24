@@ -4,6 +4,28 @@ require 'digest'
 require 'fuzzy_match'
 
 # Example:
+# cl = CourseList()
+# puts cl.to_json
+
+class CourseList
+  attr_reader :course_list
+  def initialize
+    @course_list = load_course_list
+  end
+
+  def to_json
+    @course_list.to_json
+  end
+
+  private
+  
+  def load_course_list
+    sc = KiwiScraper::OfflineCourses.new.get_instance
+    # return all course list in hash 
+  end
+end
+
+# Example:
 # c = Course.new(id=nil, name='網路安全')
 # puts c.to_json
 
