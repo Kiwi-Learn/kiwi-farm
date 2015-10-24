@@ -16,3 +16,16 @@ describe 'Getting the detail of course' do
     last_response.body.must_match(/"id":"MA02004"/)
   end
 end
+
+describe 'Searching course' do
+  it 'Should return course info' do
+    header = { 'CONTENT_TYPE' => 'application/json' }
+    body = {
+      'keyword': '電腦'
+    }
+
+    post '/api/v1/courses/search', body.to_json, header
+    last_response.must_be :ok?
+    last_response.body.must_match(/"name":"電腦安全概論"/)
+  end
+end
