@@ -21,7 +21,7 @@ describe 'Searching course' do
   it 'Should return course info' do
     header = { 'CONTENT_TYPE' => 'application/json' }
     body = {
-      'keyword': 'program'
+      'keyword' => 'program'
     }
 
     post '/api/v1/courses/search', body.to_json, header
