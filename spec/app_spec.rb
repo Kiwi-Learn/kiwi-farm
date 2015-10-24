@@ -21,12 +21,12 @@ describe 'Searching course' do
   it 'Should return course info' do
     header = { 'CONTENT_TYPE' => 'application/json' }
     body = {
-      'keyword': '電腦'
+      'keyword': 'program'
     }
 
     post '/api/v1/courses/search', body.to_json, header
     last_response.must_be :ok?
-    last_response.body.must_match(/"name":"電腦安全概論"/)
+    last_response.body.must_match(/"name":"C Programming"/)
   end
 
   it 'should return 404 unknown course' do
