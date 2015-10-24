@@ -22,12 +22,12 @@ class KiwiFarmApp < Sinatra::Base
       'Github repo</a>'
   end
 
-  get '/api/v1/courses/info/:id' do
+  get '/api/v1/info/:id.json' do
     content_type :json
     get_course(params[:id]).to_json
   end
 
-  post '/api/v1/courses/search' do
+  post '/api/v1/search' do
     content_type :json
     begin
       req = JSON.parse(request.body.read)

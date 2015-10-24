@@ -11,7 +11,7 @@ end
 
 describe 'Getting the detail of course' do
   it 'Should return ok' do
-    get '/api/v1/courses/info/MA02004'
+    get '/api/v1/info/MA02004.json'
     last_response.must_be :ok?
     last_response.body.must_match(/"id":"MA02004"/)
   end
@@ -24,7 +24,7 @@ describe 'Searching course' do
       'keyword' => 'program'
     }
 
-    post '/api/v1/courses/search', body.to_json, header
+    post '/api/v1/search', body.to_json, header
     last_response.must_be :ok?
     last_response.body.must_match(/"id":"CS01007"/)
   end
