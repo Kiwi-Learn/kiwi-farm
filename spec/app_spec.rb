@@ -28,4 +28,14 @@ describe 'Searching course' do
     last_response.must_be :ok?
     last_response.body.must_match(/"name":"電腦安全概論"/)
   end
+
+  it 'should return 404 unknown course' do
+    header = { 'CONTENT_TYPE' => 'application/json' }
+    body = {
+      'keyword': '嗨'
+    }
+
+    post '/api/v1/courses/search', body.to_json, header
+    last_response.must_be :not_found?
+  end
 end
