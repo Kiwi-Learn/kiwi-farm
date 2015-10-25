@@ -14,6 +14,12 @@ class KiwiFarmApp < Sinatra::Base
     rescue
       halt 404
     end
+
+    def get_course_list()
+      CourseList.new()
+    rescue
+      halt 404
+    end
   end
 
   get '/' do
@@ -35,5 +41,9 @@ class KiwiFarmApp < Sinatra::Base
       halt 400
     end
     search_course(req['keyword']).to_json
+  end
+
+  get '/api/v1/courselist' do
+    get_course_list().to_json
   end
 end
