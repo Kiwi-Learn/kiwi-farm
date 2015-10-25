@@ -6,7 +6,9 @@ A courses farm nourish to all kiwiers
 # API using example
 
 GET /
-
+- returns OK status to indicate service is alive
+- tells us the current API version and Github homepage of API
+- example:
 ```sh
 # it will return the basic information of Kiwi farm
 $ curl -GET http://127.0.0.1:9292/
@@ -15,8 +17,9 @@ Hello, This is Kiwi farm service. Current API version is v1. See Homepage at <a 
 
 ----
 
-GET /api/v1/info/{course_id}.json
-
+GET /api/v1/info/<course_id>.json
+- returns JSON of a single course info: name, id, url, date
+- example:
 ```sh
 # it will return the info of a single course
 $ curl -GET http://127.0.0.1:9292/api/v1/info/MA02004.json
@@ -26,7 +29,8 @@ $ curl -GET http://127.0.0.1:9292/api/v1/info/MA02004.json
 ----
 
 GET /api/v1/courselist
-
+- returns JSON of all courses on ShareCourse
+- example:
 ```sh
 # it will return all courses on the Sharecourse
 $ curl -GET http://127.0.0.1:9292/api/v1/courselist
@@ -40,11 +44,13 @@ $ curl -GET http://127.0.0.1:9292/api/v1/courselist
 ----
 
 POST /api/v1/search
-
+- takes JSON: keyword we want to search
+- returns Json of the most keyword-matched course info: name, id ,url, date
+- Example
 ```sh
 # it will return the most keyword-matched course
 $ url -H "Content-Type: application/json" -X POST -d '{"keyword":"program"}' http://127.0.0.1:9292/api/v1/search
-"id":"CS01007","name":"計算機程式設計 C Programming","url":"http://www.sharecourse.net/sharecourse/course/view/courseInfo/25","date":"2013-09-16 - 2014-02-14"}
+{"id":"CS01007","name":"計算機程式設計 C Programming","url":"http://www.sharecourse.net/sharecourse/course/view/courseInfo/25","date":"2013-09-16 - 2014-02-14"}
 ```
 
 
