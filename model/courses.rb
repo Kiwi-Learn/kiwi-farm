@@ -7,6 +7,30 @@ require 'fuzzy_match'
 # c = Course.new(id=nil, name='網路安全')
 # puts c.to_json
 
+class CourseList
+  attr_reader :course_list
+  def initialize
+    @course_list = load_course_list
+
+  end
+
+  def to_json
+    @result_array.to_json
+  end
+
+  private
+
+  def load_course_list
+    @result_array=[]
+    sc = KiwiScraper::OfflineCourses.new.get_instance
+    course_list_map = sc.courses_id_to_all_mapping
+    course_list_map.each do |id,course_info|
+      course_info.to_json["id"] << id
+      @result_array.push(course_info)
+    end
+  end
+end
+
 class Course
   attr_reader :id, :name, :url, :date
   def initialize(id=nil, name=nil)

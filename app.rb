@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'kiwicourse'
 require_relative './model/courses'
 
 class KiwiFarmApp < Sinatra::Base
@@ -11,6 +12,12 @@ class KiwiFarmApp < Sinatra::Base
 
     def search_course(keyword)
       Course.new(nil, keyword)
+    rescue
+      halt 404
+    end
+
+    def get_course_list()
+      CourseList.new()
     rescue
       halt 404
     end
@@ -35,5 +42,9 @@ class KiwiFarmApp < Sinatra::Base
       halt 400
     end
     search_course(req['keyword']).to_json
+  end
+
+  get '/api/v1/courses/courselist' do
+    get_course_list().to_json
   end
 end
