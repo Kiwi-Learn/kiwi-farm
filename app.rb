@@ -1,5 +1,4 @@
 require 'sinatra/base'
-require 'kiwicourse'
 require_relative './model/courses'
 
 class KiwiFarmApp < Sinatra::Base
