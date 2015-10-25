@@ -29,3 +29,10 @@ describe 'Searching course' do
     last_response.body.must_match(/"id":"CS01007"/)
   end
 end
+
+describe 'Course List' do
+  it 'Should return course list' do
+    get '/api/v1/courselist'
+    last_response.must_be :ok?
+  end
+end
