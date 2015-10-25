@@ -15,19 +15,19 @@ class CourseList
   end
 
   def to_json
-    @result_array.to_json
+    @course_list.to_json
   end
 
   private
 
   def load_course_list
-    @result_array=[]
+    result_array=[]
     sc = KiwiScraper::OfflineCourses.new.get_instance
     course_list_map = sc.courses_id_to_all_mapping
     course_list_map.each do |key,info|
-      # course_info.to_json["id"] << id
-      @result_array.push(info)
+      result_array << info
     end
+    result_array
   end
 end
 
