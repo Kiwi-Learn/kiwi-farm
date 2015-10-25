@@ -28,9 +28,7 @@ $ rake spec
 
 # API using example
 
-```js
 GET /
-```
 
 ```sh
 # it will return the basic information of Kiwi farm
@@ -40,9 +38,7 @@ Hello, This is Kiwi farm service. Current API version is v1. See Homepage at <a 
 
 ----
 
-```js
 GET /api/v1/info/{course_id}.json
-```
 
 ```sh
 # it will return the info of a single course
@@ -52,9 +48,7 @@ $ curl -GET http://127.0.0.1:9292/api/v1/info/MA02004.json
 
 ----
 
-```js
 GET /api/v1/courselist
-```
 
 ```sh
 # it will return all courses on the Sharecourse
@@ -68,9 +62,7 @@ $ curl -GET http://127.0.0.1:9292/api/v1/courselist
 
 ----
 
-```js
 POST /api/v1/search
-```
 
 ```sh
 # it will return the most keyword-matched course
