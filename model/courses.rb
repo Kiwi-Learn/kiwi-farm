@@ -24,9 +24,9 @@ class CourseList
     @result_array=[]
     sc = KiwiScraper::OfflineCourses.new.get_instance
     course_list_map = sc.courses_id_to_all_mapping
-    course_list_map.each do |id,course_info|
-      course_info.to_json["id"] << id
-      @result_array.push(course_info)
+    course_list_map.each do |key,info|
+      # course_info.to_json["id"] << id
+      @result_array.push(info)
     end
   end
 end
