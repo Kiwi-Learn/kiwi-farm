@@ -25,3 +25,15 @@ Run testing
 ```sh
 $ rake spec
 ```
+
+# API using example
+
+```js
+GET /
+```
+
+```sh
+# it will return the basic information of Kiwi farm
+$ curl -GET http://127.0.0.1:9292/
+Hello, This is Kiwi farm service. Current API version is v1. See Homepage at <a href="https://github.com/Kiwi-Learn/kiwi-farm">Github repo</a>%
+```
