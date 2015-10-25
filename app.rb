@@ -43,7 +43,7 @@ class KiwiFarmApp < Sinatra::Base
     search_course(req['keyword']).to_json
   end
 
-  get '/api/v1/courses/courselist' do
+  get '/api/v1/courselist' do
     get_course_list().to_json
   end
 end
