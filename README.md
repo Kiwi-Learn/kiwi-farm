@@ -1,5 +1,6 @@
 # kiwi-farm
-[![Build Status](https://travis-ci.org/Kiwi-Learn/kiwi-farm.svg?branch=master)](https://travis-ci.org/Kiwi-Learn/kiwi-farm)
+![codeship](https://codeship.com/projects/9c666b20-607a-0133-03e1-7258394f756c/status?branch=master)
+
 
 A courses farm nourish to all kiwiers
 
