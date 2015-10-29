@@ -6,7 +6,7 @@ A courses farm nourish to all kiwiers
 
 # API using example
 
-GET /
+**GET /**
 - returns OK status to indicate service is alive
 - tells us the current API version and Github homepage of API
 - example:
@@ -17,7 +17,7 @@ Hello, This is Kiwi farm service. Current API version is v1. See Homepage at <a 
 ```
 
 
-GET /api/v1/info/{course_id}.json
+**GET /api/v1/info/{course_id}.json**
 - returns JSON of a single course info: id, name, url, date
 - example:
 ```sh
@@ -27,7 +27,7 @@ $ curl -GET http://127.0.0.1:9292/api/v1/info/MA02004.json
 ```
 
 
-GET /api/v1/courselist
+**GET /api/v1/courselist**
 - returns JSON of all courses on ShareCourse
 - example:
 ```sh
@@ -41,7 +41,7 @@ $ curl -GET http://127.0.0.1:9292/api/v1/courselist
 ```
 
 
-POST /api/v1/search
+**POST /api/v1/search**
 - takes JSON: keyword we want to search
 - returns Json of the most keyword-matched course info: id, name, url, date
 - example:
