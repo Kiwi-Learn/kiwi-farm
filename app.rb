@@ -23,7 +23,7 @@ class KiwiFarmApp < Sinatra::Base
   end
 
   get '/' do
-    'Hello, This is Kiwi farm service. Current API version is v1. Now we have deployed our service on Heroku. Please feel free to explore it!' \
+    'Hello there!! This is Kiwi farm service. Current API version is v1. Now we have deployed our service on Heroku. Please feel free to explore it!' \
       'See Homepage at <a href="https://github.com/Kiwi-Learn/kiwi-farm">' \
       'Github repo</a>'
   end
