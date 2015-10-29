@@ -1,5 +1,5 @@
 # kiwi-farm
-![codeship](https://codeship.com/projects/a23b58c0-5dc5-0133-8052-3a8f5e5e1065/status?branch=master)
+[ ![Codeship Status for Kiwi-Learn/kiwi-farm](https://codeship.com/projects/a23b58c0-5dc5-0133-8052-3a8f5e5e1065/status?branch=master)](https://codeship.com/projects/111139)
 
 
 A courses farm nourish to all kiwiers
