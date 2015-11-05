@@ -1,15 +1,16 @@
 ENV['RACK_ENV'] = 'test'
 
+Dir.glob('./{models,helpers,controllers}/*.rb').each { |file| require file }
+
 require 'minitest/autorun'
 require 'rack/test'
 require 'vcr'
 require 'webmock/minitest'
-require_relative '../app'
 
 include Rack::Test::Methods
 
 def app
-  KiwiFarmApp
+  ApplicationController
 end
 
 def random_str(n)

@@ -1,39 +1,24 @@
 require 'sinatra/base'
-require_relative './model/courses'
 
-class KiwiFarmApp < Sinatra::Base
-  helpers do
-    def get_course(id)
-      Course.new(id, nil)
-    rescue
-      halt 404
-    end
+class ApplicationController < Sinatra::Base
+  helpers CourseHelpers, SearchHelpers
 
-    def search_course(keyword)
-      Course.new(nil, keyword)
-    rescue
-      halt 404
-    end
-
-    def get_course_list()
-      CourseList.new()
-    rescue
-      halt 404
-    end
+  configure :production, :development do
+    enable :logging
   end
 
-  get '/' do
+  get_root = lambda do
     'Hello there!! This is Kiwi farm service. Current API version is v1. Now we have deployed our service on Heroku. Please feel free to explore it!' \
       'See Homepage at <a href="https://github.com/Kiwi-Learn/kiwi-farm">' \
       'Github repo</a>'
   end
 
-  get '/api/v1/info/:id.json' do
+  get_info = lambda do
     content_type :json
     get_course(params[:id]).to_json
   end
 
-  post '/api/v1/search' do
+  post_search = lambda do
     content_type :json
     begin
       req = JSON.parse(request.body.read)
@@ -43,7 +28,16 @@ class KiwiFarmApp < Sinatra::Base
     search_course(req['keyword']).to_json
   end
 
-  get '/api/v1/courselist' do
+  get_courselist = lambda do
     get_course_list().to_json
   end
+
+
+  get '/', &get_root
+
+  get '/api/v1/info/:id.json', &get_info
+
+  post '/api/v1/search', &post_search
+  
+  get '/api/v1/courselist', &get_courselist
 end
