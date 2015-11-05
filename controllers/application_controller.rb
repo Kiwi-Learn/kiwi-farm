@@ -22,10 +22,41 @@ class ApplicationController < Sinatra::Base
     content_type :json
     begin
       req = JSON.parse(request.body.read)
+      logger.info req
     rescue
       halt 400
     end
-    search_course(req['keyword']).to_json
+    search = Search.new(keyword: req['keyword'])
+
+    if search.save
+      status 201
+      redirect "/api/v1/searched/#{search.id}", 303
+    else
+      halt 500, 'Error saving tutorial request to the database'
+    end
+
+    # search_course(req['keyword']).to_json
+  end
+
+  get_searched = lambda do
+    content_type :json
+    begin
+      search = Search.find(params[:id])
+      keyword = search.keyword
+      logger.info({id: search.id, keyword: keyword}.to_json)
+    rescue
+      halt 400
+    end
+
+    begin
+      results = search_course(keyword)
+    rescue
+      halt 500, 'Lookup of ShareCourse failed'
+    end
+
+    { id: search.id, keyword: keyword,
+      results: results }.to_json
+
   end
 
   get_courselist = lambda do
@@ -37,7 +68,8 @@ class ApplicationController < Sinatra::Base
 
   get '/api/v1/info/:id.json', &get_info
 
+  get '/api/v1/searched/:id', &get_searched
   post '/api/v1/search', &post_search
-  
+
   get '/api/v1/courselist', &get_courselist
 end
