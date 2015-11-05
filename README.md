@@ -63,7 +63,7 @@ $ bundle install
 Use `rackup` to run the web app, and visit [http://localhost:9292](http://localhost:9292/)
 
 ```sh
-$ rackup config.ru
+$ rackup
 Thin web server (v1.6.4 codename Gob Bluth)
 Maximum connections set to 1024
 Listening on localhost:9292, CTRL+C to stop
