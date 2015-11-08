@@ -11,12 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105072638) do
+ActiveRecord::Schema.define(version: 20151108122005) do
 
   create_table "searches", force: :cascade do |t|
     t.string   "keyword"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "course_name"
+    t.string   "course_url"
+    t.string   "course_id"
+    t.string   "course_date"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end

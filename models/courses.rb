@@ -18,10 +18,10 @@ class CourseList
   end
 
   private
-  
+
   def load_course_list
     sc = KiwiScraper::OfflineCourses.new.get_instance
-    # return all course list in hash 
+    # return all course list in hash
   end
 end
 
@@ -61,10 +61,19 @@ class Course
     else
       @course = load_course_by_id(id)
     end
-    @id = @course['id']
-    @name = @course['name']
-    @url = @course['url']
-    @date = @course['date']
+
+    if @course.nil?
+      @id = nil
+      @name = nil
+      @url = nil
+      @date = nil
+    else
+      @id = @course['id']
+      @name = @course['name']
+      @url = @course['url']
+      @date = @course['date']
+    end
+
   end
 
   def to_json

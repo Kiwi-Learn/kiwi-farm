@@ -3,5 +3,5 @@ module SearchHelpers
     Course.new(nil, keyword)
   rescue
     halt 404
-  end   
+  end
 end
