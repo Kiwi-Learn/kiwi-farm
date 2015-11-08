@@ -81,6 +81,9 @@ class Course
   def load_course_by_name(name)
     sc = KiwiScraper::OfflineCourses.new.get_instance
     result = FuzzyMatch.new(sc.course_name).find(name)
+    if (!result)
+      return nil
+    end
     input_key = Digest::SHA256.digest result
     id = sc.courses_name_to_id_mapping[input_key]
     sc.courses_id_to_all_mapping[id]
