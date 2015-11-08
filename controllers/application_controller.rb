@@ -79,21 +79,17 @@ class ApplicationController < Sinatra::Base
       halt 400
     end
 
-    begin
-      results = search_course(keyword)
-    rescue
-      halt 500, 'Lookup of ShareCourse failed'
-    end
-
-    { id: search.id, keyword: keyword,
-      results: results }.to_json
-
+    { keyword: keyword,
+      courese_id: search.course_id,
+      course_name: search.course_name,
+      course_url: search.course_url,
+      course_date: search.course_date
+    }.to_json
   end
 
   get_courselist = lambda do
     get_course_list().to_json
   end
-
 
   get '/', &get_root
 
