@@ -1,24 +1,57 @@
 require 'sinatra/base'
+require 'sinatra/flash'
+require 'httparty'
+require 'hirb'
+require 'slim'
 
 class ApplicationController < Sinatra::Base
   helpers CourseHelpers, SearchHelpers
+  enable :sessions
+  register Sinatra::Flash
+  use Rack::MethodOverride
+
+  set :views, File.expand_path('../../views', __FILE__)
+  set :public_folder, File.expand_path('../../public', __FILE__)
+
+  configure do
+    Hirb.enable
+    set :session_secret, 'something'
+    set :api_ver, 'api/v1'
+  end
+
+  configure :development, :test do
+    set :api_server, 'http://localhost:9292'
+  end
+
+  configure :production do
+    set :api_server, 'https://kiwi-learn.herokuapp.com/'
+  end
 
   configure :production, :development do
     enable :logging
   end
 
-  get_root = lambda do
+  helpers do
+    def current_page?(path = ' ')
+      path_info = request.path_info
+      path_info += ' ' if path_info == '/'
+      request_path = path_info.split '/'
+      request_path[1] == path
+    end
+  end
+
+  api_get_root = lambda do
     'Hello there!! This is Kiwi farm service. Current API version is v1. Now we have deployed our service on Heroku. Please feel free to explore it!' \
       'See Homepage at <a href="https://github.com/Kiwi-Learn/kiwi-farm">' \
       'Github repo</a>'
   end
 
-  get_info = lambda do
+  api_get_info = lambda do
     content_type :json
     get_course(params[:id]).to_json
   end
 
-  post_search = lambda do
+  api_post_search = lambda do
     content_type :json
     begin
       req = JSON.parse(request.body.read)
@@ -65,11 +98,11 @@ class ApplicationController < Sinatra::Base
     # search_course(req['keyword']).to_json
   end
 
-  get_notfound = lambda do
+  api_get_notfound = lambda do
     'Course not found!'
   end
 
-  get_searched = lambda do
+  api_get_searched = lambda do
     content_type :json
     begin
       search = Search.find(params[:id])
@@ -87,17 +120,27 @@ class ApplicationController < Sinatra::Base
     }.to_json
   end
 
-  get_courselist = lambda do
+  api_get_courselist = lambda do
     get_course_list().to_json
   end
 
-  get '/', &get_root
+  # Web API Routes
+  get 'api/v1/?', &api_get_root
 
-  get '/api/v1/info/:id.json', &get_info
+  get '/api/v1/info/:id.json', &api_get_info
 
-  get '/api/v1/searched/notfound', &get_notfound
-  get '/api/v1/searched/:id', &get_searched
-  post '/api/v1/search', &post_search
+  get '/api/v1/searched/notfound', &api_get_notfound
+  get '/api/v1/searched/:id', &api_get_searched
+  post '/api/v1/search', &api_post_search
 
-  get '/api/v1/courselist', &get_courselist
+  get '/api/v1/courselist', &api_get_courselist
+
+  ### seperate ###
+
+  app_get_root = lambda do
+      slim :home
+    end
+
+  # Web App Views Routes
+  get '/', &app_get_root
 end
