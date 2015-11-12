@@ -1,18 +1,27 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
-gem 'thin'
+gem 'puma'
 gem 'kiwicourse'
 gem 'json'
 
 gem 'fuzzy_match'
 gem 'digest'
+
 gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'tux'
+gem 'hirb'
+
+gem 'httparty'
+
+gem 'sinatra-flash'
+gem 'slim'
+gem 'tilt'
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'shotgun'
 end
 
 group :production do
