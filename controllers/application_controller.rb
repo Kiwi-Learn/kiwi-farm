@@ -125,7 +125,7 @@ class ApplicationController < Sinatra::Base
   end
 
   # Web API Routes
-  get 'api/v1/?', &api_get_root
+  get '/api/v1/?', &api_get_root
 
   get '/api/v1/info/:id.json', &api_get_info
 
