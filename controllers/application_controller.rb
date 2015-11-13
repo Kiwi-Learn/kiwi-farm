@@ -69,7 +69,6 @@ class ApplicationController < Sinatra::Base
 
     # search website
     begin
-      # logger.info 'before search ' + req['keyword']
       results = search_course(req['keyword'])
     rescue
       halt 500, 'Lookup of ShareCourse failed'
@@ -108,7 +107,6 @@ class ApplicationController < Sinatra::Base
     begin
       search = Search.find(params[:id])
       keyword = search.keyword
-      logger.info({id: search.id, keyword: keyword}.to_json)
     rescue
       halt 400
     end
@@ -162,17 +160,19 @@ class ApplicationController < Sinatra::Base
       keyword: keyword
     }
 
-    options =  {  body: params_h.to_json,
-                  headers: { 'Content-Type' => 'application/json' }
-               }
+    options =  {
+      body: params_h.to_json,
+      headers: { 'Content-Type' => 'application/json' }
+    }
+
     result = HTTParty.post(request_url, options)
-    logger.info result
-    logger.info result.code
+
     if (result.code != 200)
       flash[:notice] = 'Could not found course'
       redirect '/search'
       return nil
     end
+
     course_id = result.parsed_response['course_id']
     redirect "/courses/#{course_id}"
   end
