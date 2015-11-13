@@ -135,12 +135,23 @@ class ApplicationController < Sinatra::Base
 
   get '/api/v1/courselist', &api_get_courselist
 
-  ### seperate ###
-
+  # Web App Views Methods
   app_get_root = lambda do
-      slim :home
-    end
+    slim :home
+  end
+
+  app_get_courses = lambda do
+    @courselist = JSON.parse(get_course_list().to_json)
+    slim :courses
+  end
+
+  app_get_courses_info = lambda do
+    @single_course = JSON.parse(get_course(params[:id]).to_json)
+    slim :course_info
+  end
 
   # Web App Views Routes
   get '/', &app_get_root
+  get '/courses', &app_get_courses
+  get '/courses/:id', &app_get_courses_info
 end

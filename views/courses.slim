@@ -1,0 +1,20 @@
+.container
+
+  -if @courselist
+    table class='left'
+      tbody
+        tr
+          th Course ID
+          th Course Name
+          th Date
+          th Course Page
+        -@courselist.each do |course|
+          tr
+            td
+              a href="/courses/#{course['id']}" #{course['id'] }
+            td width='400'
+              = course['name']
+            td width='200'
+              = course['date']
+            td
+              a href="#{course['url']}" ¶
