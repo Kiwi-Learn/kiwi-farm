@@ -145,9 +145,13 @@ class ApplicationController < Sinatra::Base
     slim :courses
   end
 
-
+  app_get_courses_info = lambda do
+    @single_course = JSON.parse(get_course(params[:id]).to_json)
+    slim :course_info
+  end
 
   # Web App Views Routes
   get '/', &app_get_root
   get '/courses', &app_get_courses
+  get '/courses/:id', &app_get_courses_info
 end

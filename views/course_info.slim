@@ -1,0 +1,19 @@
+.container
+
+  -if @single_course
+    table class='left'
+      tbody
+        tr
+          th Course ID
+          th Course Name
+          th Date
+          th Course Page
+        tr
+          td
+            a href="/courses/#{@single_course['id']}" #{@single_course['id'] }
+          td width='300'
+            = @single_course['name']
+          td width='200'
+            = @single_course['date']
+          td
+            a href="#{@single_course['url']}" ¶
