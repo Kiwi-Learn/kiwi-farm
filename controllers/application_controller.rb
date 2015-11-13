@@ -99,6 +99,7 @@ class ApplicationController < Sinatra::Base
   end
 
   api_get_notfound = lambda do
+    status 204
     'Course not found!'
   end
 
@@ -113,7 +114,7 @@ class ApplicationController < Sinatra::Base
     end
 
     { keyword: keyword,
-      courese_id: search.course_id,
+      course_id: search.course_id,
       course_name: search.course_name,
       course_url: search.course_url,
       course_date: search.course_date
@@ -150,8 +151,37 @@ class ApplicationController < Sinatra::Base
     slim :course_info
   end
 
+  app_get_search = lambda do
+    slim :search
+  end
+
+  app_post_search =lambda do
+    request_url = "#{settings.api_server}/#{settings.api_ver}/search"
+    keyword = params[:keyword]
+    params_h = {
+      keyword: keyword
+    }
+
+    options =  {  body: params_h.to_json,
+                  headers: { 'Content-Type' => 'application/json' }
+               }
+    result = HTTParty.post(request_url, options)
+    logger.info result
+    logger.info result.code
+    if (result.code != 200)
+      flash[:notice] = 'Could not found course'
+      redirect '/search'
+      return nil
+    end
+    course_id = result.parsed_response['course_id']
+    redirect "/courses/#{course_id}"
+  end
+
   # Web App Views Routes
   get '/', &app_get_root
   get '/courses', &app_get_courses
   get '/courses/:id', &app_get_courses_info
+  get '/search' , &app_get_search
+  post '/search' ,&app_post_search
+
 end
