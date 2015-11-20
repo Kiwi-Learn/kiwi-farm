@@ -33,7 +33,14 @@ class CheckSearchFromAPI
     results = HTTParty.post(@api_url, @options)
     search_results = SearchResult.new(results)
     search_results.code = results.code
+    if results.code != 200
+      return search_results
+    end
+    search_results.keyword = results.parsed_response['keyword']
     search_results.course_id = results.parsed_response['course_id']
+    search_results.course_name = results.parsed_response['course_name']
+    search_results.course_url = results.parsed_response['course_url']
+    search_results.course_date = results.parsed_response['course_date']
     search_results
   end
 end
