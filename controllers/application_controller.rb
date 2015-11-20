@@ -1,11 +1,14 @@
 require 'sinatra/base'
 require 'sinatra/flash'
-require 'httparty'
+
 require 'hirb'
 require 'slim'
 
+require 'httparty'
+
+
 class ApplicationController < Sinatra::Base
-  helpers CourseHelpers, SearchHelpers
+  helpers CourseHelpers, SearchHelpers, ApplicationHelpers
   enable :sessions
   register Sinatra::Flash
   use Rack::MethodOverride
@@ -29,15 +32,6 @@ class ApplicationController < Sinatra::Base
 
   configure :production, :development do
     enable :logging
-  end
-
-  helpers do
-    def current_page?(path = ' ')
-      path_info = request.path_info
-      path_info += ' ' if path_info == '/'
-      request_path = path_info.split '/'
-      request_path[1] == path
-    end
   end
 
   api_get_root = lambda do
@@ -154,27 +148,24 @@ class ApplicationController < Sinatra::Base
   end
 
   app_post_search =lambda do
+    form = SearchForm.new(params)
+    # logger.info form
     request_url = "#{settings.api_server}/#{settings.api_ver}/search"
-    keyword = params[:keyword]
-    params_h = {
-      keyword: keyword
-    }
+    error_send(back, "Following fields are required: #{form.error_fields}") \
+      unless form.valid?
 
-    options =  {
-      body: params_h.to_json,
-      headers: { 'Content-Type' => 'application/json' }
-    }
+    logger.info request_url
+    results = CheckSearchFromAPI.new(request_url, form).call
+    error_send back, 'Could not find usernames' if (results.code != 200)
 
-    result = HTTParty.post(request_url, options)
-
-    if (result.code != 200)
+    if (results.code != 200)
       flash[:notice] = 'Could not found course'
       redirect '/search'
       return nil
     end
 
-    course_id = result.parsed_response['course_id']
-    redirect "/courses/#{course_id}"
+    # course_id = results.parsed_response['course_id']
+    redirect "/courses/#{results.course_id}"
   end
 
   # Web App Views Routes
