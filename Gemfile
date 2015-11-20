@@ -4,6 +4,8 @@ gem 'sinatra'
 gem 'puma'
 gem 'kiwicourse'
 gem 'json'
+gem 'virtus'
+gem 'activemodel'
 
 gem 'fuzzy_match'
 gem 'digest'

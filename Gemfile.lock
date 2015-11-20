@@ -18,11 +18,20 @@ GEM
     ansi (1.5.0)
     arel (6.0.3)
     ast (2.1.0)
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
     bond (0.5.1)
     builder (3.2.2)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
     digest (0.0.1)
+    equalizer (0.0.11)
     fuzzy_match (2.1.0)
     hashdiff (0.2.3)
     hirb (0.7.3)
@@ -30,6 +39,7 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
+    ice_nine (0.11.1)
     json (1.8.3)
     kiwicourse (0.5.3)
       fuzzy_match
@@ -90,6 +100,11 @@ GEM
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     vcr (3.0.0)
+    virtus (1.0.5)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
     webmock (1.22.3)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -99,6 +114,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activemodel
   activerecord
   digest
   fuzzy_match
@@ -121,6 +137,7 @@ DEPENDENCIES
   tilt
   tux
   vcr
+  virtus
   webmock
 
 BUNDLED WITH
