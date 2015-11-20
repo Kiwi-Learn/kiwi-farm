@@ -154,9 +154,7 @@ class ApplicationController < Sinatra::Base
     error_send(back, "Following fields are required: #{form.error_fields}") \
       unless form.valid?
 
-    logger.info request_url
     results = CheckSearchFromAPI.new(request_url, form).call
-    error_send back, 'Could not find usernames' if (results.code != 200)
 
     if (results.code != 200)
       flash[:notice] = 'Could not found course'
